@@ -68,7 +68,3 @@ Marsel: Hello!
 > Exit
 You have left the chat.
 ```
-
-### JSON Message Format
-
-Using JSON format for message exchange is a special requirement. Each user command or message must be transferred to the server (and received from the server) in the form of a JSON line. 
