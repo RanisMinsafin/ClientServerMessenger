@@ -21,36 +21,16 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     private void createTables() {
-        template.execute("drop schema if exists service cascade;\n" +
-                "create schema if not exists service;\n" +
-                "create table service.users\n" +
-                "(\n" +
-                "    id       serial primary key,\n" +
-                "    username varchar(255) unique,\n" +
-                "    password varchar(255)\n" +
-                ");");
-
         template.execute(
-                "create schema if not exists service;\n" +
-                        "create table if not exists service.chatrooms (\n" +
-                        "    id serial primary key,\n" +
-                        "    name varchar(255) unique,\n" +
-                        "    password varchar(255),\n" +
-                        "    owner_id int not null,\n" +
-                        "    foreign key (owner_id) references service.users(id)\n" +
-                        ");\n");
-
-        template.execute(
-                "create schema if not exists service;\n" +
-                        "create table if not exists service.messages (\n" +
-                        "    id serial primary key,\n" +
-                        "    chat_id int not null,\n" +
-                        "    sender_id int not null,\n" +
-                        "    text text,\n" +
-                        "    time timestamp,\n" +
-                        "    foreign key (sender_id) references service.users(id),\n" +
-                        "    foreign key (chat_id) references service.chatrooms(id)\n" +
-                        ");\n");
+                "drop schema if exists service cascade;\n" +
+                        "create schema if not exists service;\n" +
+                        "create table service.users\n" +
+                        "(\n" +
+                        "    id       serial primary key,\n" +
+                        "    username varchar(255) unique,\n" +
+                        "    password varchar(255)\n" +
+                        ");"
+        );
     }
 
 

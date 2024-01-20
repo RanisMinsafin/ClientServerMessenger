@@ -2,6 +2,7 @@ package edu.school21.sockets.repositories;
 
 import edu.school21.sockets.models.Message;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+@DependsOn({"usersRepository", "chatroomRepository"})
 @Component("messageRepository")
 public class MessageRepositoryImpl implements MessageRepository {
     private JdbcTemplate template;
@@ -19,7 +21,22 @@ public class MessageRepositoryImpl implements MessageRepository {
     @Autowired
     public MessageRepositoryImpl(DataSource dataSource) {
         this.template = new JdbcTemplate(dataSource);
+        createTable();
     }
+
+    private void createTable() {
+        template.execute(
+                "create table if not exists service.messages (\n" +
+                        "    id serial primary key,\n" +
+                        "    chat_id int not null,\n" +
+                        "    sender_id int not null,\n" +
+                        "    text text,\n" +
+                        "    time timestamp,\n" +
+                        "    foreign key (sender_id) references service.users(id),\n" +
+                        "    foreign key (chat_id) references service.chatrooms(id)\n" +
+                        ");\n");
+    }
+
 
     @Override
     public Optional<Message> findById(Long id) {

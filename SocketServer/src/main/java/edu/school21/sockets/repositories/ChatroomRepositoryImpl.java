@@ -2,6 +2,7 @@ package edu.school21.sockets.repositories;
 
 import edu.school21.sockets.models.Chatroom;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import javax.sql.DataSource;
 import java.util.List;
 import java.util.Optional;
 
+@DependsOn("usersRepository")
 @Component("chatroomRepository")
 public class ChatroomRepositoryImpl implements ChatroomRepository {
     private JdbcTemplate template;
@@ -17,6 +19,18 @@ public class ChatroomRepositoryImpl implements ChatroomRepository {
     @Autowired
     public ChatroomRepositoryImpl(DataSource dataSource) {
         this.template = new JdbcTemplate(dataSource);
+        createTable();
+    }
+
+    private void createTable() {
+        template.execute(
+                "create table if not exists service.chatrooms (\n" +
+                        "    id serial primary key,\n" +
+                        "    name varchar(255) unique,\n" +
+                        "    password varchar(255),\n" +
+                        "    owner_id int not null,\n" +
+                        "    foreign key (owner_id) references service.users(id)\n" +
+                        ");\n");
     }
 
     @Override
