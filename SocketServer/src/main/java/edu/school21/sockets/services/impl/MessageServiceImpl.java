@@ -1,7 +1,8 @@
-package edu.school21.sockets.services;
+package edu.school21.sockets.services.impl;
 
 import edu.school21.sockets.models.Message;
 import edu.school21.sockets.repositories.MessageRepository;
+import edu.school21.sockets.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

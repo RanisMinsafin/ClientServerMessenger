@@ -1,7 +1,8 @@
-package edu.school21.sockets.services;
+package edu.school21.sockets.services.impl;
 
 import edu.school21.sockets.models.Chatroom;
 import edu.school21.sockets.repositories.ChatroomRepository;
+import edu.school21.sockets.services.ChatroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

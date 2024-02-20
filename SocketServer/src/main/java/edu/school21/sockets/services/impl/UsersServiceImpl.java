@@ -1,5 +1,6 @@
-package edu.school21.sockets.services;
+package edu.school21.sockets.services.impl;
 
+import edu.school21.sockets.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import edu.school21.sockets.repositories.UsersRepository;

@@ -1,6 +1,7 @@
-package edu.school21.sockets.repositories;
+package edu.school21.sockets.repositories.impl;
 
 import edu.school21.sockets.models.User;
+import edu.school21.sockets.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
